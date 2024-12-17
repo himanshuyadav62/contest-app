@@ -18,6 +18,7 @@ import lombok.Data;
 @Table(name = "contests")
 @Data
 public class Contest {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "contest_id")
@@ -37,9 +38,6 @@ public class Contest {
     
     @Column(name = "registration_deadline")
     private Instant registrationDeadline;
-    
-    @OneToMany(mappedBy = "contest", cascade = CascadeType.ALL)
-    private List<Problem> problems;
     
     @OneToMany(mappedBy = "contest")
     private List<ContestParticipation> participations;

@@ -1,6 +1,5 @@
 package com.contest.api.contestDomain;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,11 +9,11 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Answer {
+public class CodeSubmission {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String answerId;
+    private String codeSubmissionId;
  
     // fields for coding problems result 
     @Column(name = "answer_text", columnDefinition = "TEXT") 

@@ -29,8 +29,8 @@ public class Content {
     private ContentType contentType;
 
     @NotBlank
-    @Column(name = "content_url")
-    private String contentUrl;
+    @Column(name = "content_url_id")
+    private String contentUrlId;
 
     @Column(name = "content_order")
     private int contentOrder;

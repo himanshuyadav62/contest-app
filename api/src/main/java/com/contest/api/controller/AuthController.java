@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,25 +12,26 @@ import com.contest.api.entity.LoginRequest;
 import com.contest.api.entity.Roles;
 import com.contest.api.entity.User;
 import com.contest.api.repository.UserRepo;
+import com.contest.api.service.SessionManager;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+
 import java.security.Principal;
 import java.time.Instant;
 import java.util.Set;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final SessionManager sessionManager;
 
-    public AuthController(UserRepo userRepo, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager) {
-        this.userRepo = userRepo;
-        this.passwordEncoder = passwordEncoder;
-        this.authenticationManager = authenticationManager;
-    }
+    
 
     // User Registration Endpoint
      @PostMapping("/register")
@@ -57,18 +59,26 @@ public class AuthController {
                     loginRequest.getPassword()
                 )
             );
-            return ResponseEntity.ok("Login successful");
+            User user = userRepo.findByEmailOrUserName(loginRequest.getUsername()).get();
+            String sessionCookie = this.sessionManager.createSession(user); 
+            return ResponseEntity.ok()
+            .header("Set-Cookie", "JSESSION_ID=" + sessionCookie + "; Path=/; HttpOnly; SameSite=None; Secure")
+            .body("Login successful");
+        
         } catch (AuthenticationException e) {
             return ResponseEntity.status(401).body("Authentication failed");
         }
     }
     // Check Authentication Status
     @GetMapping("/status")
-    public String authStatus(Principal principal) {
-        if (principal != null) {
-            return "Logged in as: " + principal.getName();
+    public ResponseEntity<?> authStatus(Principal p) {
+        System.out.println(p.getClass().getName());
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(principal);
+        if (principal instanceof User user) {
+            return ResponseEntity.ok(user.getUserId());
         } else {
-            return "Not authenticated";
+            return ResponseEntity.status(401).body("Unauthorized");
         }
     }
 

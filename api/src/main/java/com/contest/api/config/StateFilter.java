@@ -3,9 +3,14 @@ package com.contest.api.config;
 import java.io.IOException;
 import java.util.Arrays;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.contest.api.entity.User;
 import com.contest.api.service.SessionManager;
 
 import jakarta.servlet.FilterChain;
@@ -39,13 +44,19 @@ public class StateFilter extends OncePerRequestFilter {
         }
 
         if (sessionCookie != null && sessionManager.validateSession(sessionCookie)) {
+            User user = this.sessionManager.getUser(sessionCookie);
+            var authorities = user.getRoles().stream()
+                    .map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
+                    .toList();
+
+            // Create Authentication object with user and authorities
+            Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
+
+            // Set Authentication in SecurityContext
+            SecurityContextHolder.getContext().setAuthentication(authentication);
             filterChain.doFilter(request, response);
         } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid session");
-            // redirect to login page 
-            String redirectUrl = "/login?redirect=" + request.getRequestURI();
-            response.sendRedirect(redirectUrl);
+            filterChain.doFilter(request, response);
         }
     }
-
 }

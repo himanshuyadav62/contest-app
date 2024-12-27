@@ -21,6 +21,7 @@ import lombok.Data;
 @Table(name = "contest_participations")
 @Data
 public class ContestParticipation {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;

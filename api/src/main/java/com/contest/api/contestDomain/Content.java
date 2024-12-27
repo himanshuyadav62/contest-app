@@ -34,8 +34,4 @@ public class Content {
 
     @Column(name = "content_order")
     private int contentOrder;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "problem_id", nullable = false)
-    private Problem problem;
 }

@@ -14,6 +14,7 @@ import lombok.Data;
 @Table(name = "problem_orders")
 @Data
 public class ProblemOrder {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;

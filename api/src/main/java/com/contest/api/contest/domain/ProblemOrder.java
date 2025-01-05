@@ -1,4 +1,4 @@
-package com.contest.api.contestDomain;
+package com.contest.api.contest.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

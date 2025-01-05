@@ -1,4 +1,4 @@
-package com.contest.api.contestDomain;
+package com.contest.api.contest.domain;
 
 import java.util.List;
 

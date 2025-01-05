@@ -1,4 +1,4 @@
-package com.contest.api.contestDomain;
+package com.contest.api.contest.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

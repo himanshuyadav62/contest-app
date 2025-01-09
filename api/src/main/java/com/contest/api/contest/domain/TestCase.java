@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -28,6 +29,7 @@ public class TestCase {
 
     private Integer testCaseNumber; 
 
+    @ManyToOne
     @JoinColumn(name = "coding_problem_id", nullable = false)
     private CodingProblem codingProblem;
 

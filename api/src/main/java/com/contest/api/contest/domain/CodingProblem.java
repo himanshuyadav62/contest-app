@@ -1,11 +1,11 @@
 package com.contest.api.contest.domain;
 
-import java.util.List;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
@@ -13,10 +13,9 @@ import lombok.Data;
 public class CodingProblem {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "coding_problem_id")
     private String codingProblemId;
-
-    @OneToMany
-    private List<Content> contents;
 
     @JoinColumn(name = "problem_id", nullable = false)
     private Problem problem;

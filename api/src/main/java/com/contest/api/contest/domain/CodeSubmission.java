@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Entity
@@ -16,24 +17,15 @@ public class CodeSubmission {
     private String codeSubmissionId;
  
     // fields for coding problems result 
-    @Column(name = "answer_text", columnDefinition = "TEXT") 
-    private String answerText;
+    @Column(name = "code_text_id")
+    private String codeTextId;
 
-    @Column(name = "is_correct")
-    private boolean isCorrect;
-
-    @Column(name = "execution_time")
-    private Long executionTime;
-
-    @Column(name = "memory_usage")
-    private Long memoryUsage;
-
-    @Column(name = "language")
-    private String language;
-
-    @Column(name = "test_case_count")
-    private Integer testCaseCount;
+    @Column(name = "accepted")
+    private Boolean accepted;
 
     @Column(name = "test_case_passed_count")
     private Integer testCasePassedCount;
+
+    @ManyToOne
+    private CodingProblem codingProblem;
 }

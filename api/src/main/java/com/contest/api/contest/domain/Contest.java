@@ -1,14 +1,11 @@
 package com.contest.api.contest.domain;
 
 import java.time.Instant;
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -34,10 +31,10 @@ public class Contest {
     
     @Column(name = "end_time", nullable = false)
     private Instant endTime;
+
+    @Column(name = "is_private", nullable = false)
+    private Boolean isPrivate; 
     
     @Column(name = "registration_deadline")
     private Instant registrationDeadline;
-    
-    @OneToMany(mappedBy = "contest")
-    private List<ContestParticipation> participations;
 }

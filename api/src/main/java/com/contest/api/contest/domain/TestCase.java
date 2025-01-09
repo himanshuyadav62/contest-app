@@ -1,6 +1,8 @@
 package com.contest.api.contest.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import lombok.Data;
@@ -9,10 +11,11 @@ import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Data
-@Table(name = "test_case", uniqueConstraints = {@UniqueConstraint(columnNames = {"testcaseNumber", "problem_id"})})
+@Table(name = "test_case", uniqueConstraints = {@UniqueConstraint(columnNames = {"testcaseId", "testcase", })})
 public class TestCase {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String testcaseId; 
 
     private String inputFileId; 
@@ -23,9 +26,9 @@ public class TestCase {
 
     private Double memoryLimit;
 
-    private Integer testcaseNumber; 
+    private Integer testCaseNumber; 
 
-    @JoinColumn(name = "problem_id", nullable = false)
-    private Problem problem;
+    @JoinColumn(name = "coding_problem_id", nullable = false)
+    private CodingProblem codingProblem;
 
 }

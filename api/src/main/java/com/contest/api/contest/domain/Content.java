@@ -30,5 +30,5 @@ public class Content {
     private String contentUrlId;
 
     @Column(name = "content_order")
-    private int contentOrder;
+    private Integer contentOrder;
 }

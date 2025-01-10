@@ -9,12 +9,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "problems")
+@Table(name = "multiple_options_problems")
 @Data
 public class MultipleOptionsProblem {
 
@@ -29,4 +30,12 @@ public class MultipleOptionsProblem {
     @OneToMany
     @JoinColumn(name = "mop_id")
     private List<Option> options;
+
+    @ManyToOne
+    @JoinColumn(name = "contest_id")
+    private Contest contest;
+
+    @ManyToOne
+    @JoinColumn(name = "problem_id")
+    private Problem problem;
 }

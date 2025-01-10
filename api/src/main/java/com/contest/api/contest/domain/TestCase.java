@@ -9,15 +9,19 @@ import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.Index;
 
 @Entity
+@Table(name = "test_case", uniqueConstraints = {@UniqueConstraint(columnNames = {"testcaseId", "testcase"})}, 
+indexes = {@Index(name = "idx_coding_problem_id", columnList = "coding_problem_id")})
 @Data
-@Table(name = "test_case", uniqueConstraints = {@UniqueConstraint(columnNames = {"testcaseId", "testcase", })})
 public class TestCase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String testcaseId; 
+
+    private boolean visible; 
 
     private String inputFileId; 
 

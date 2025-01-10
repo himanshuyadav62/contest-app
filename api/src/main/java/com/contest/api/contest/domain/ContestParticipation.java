@@ -23,7 +23,8 @@ public class ContestParticipation {
     
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @Column(name = "contest_participation_id")
+    private String contestParticipationId;
     
     @Column(name = "registration_time")
     private Instant registrationTime;

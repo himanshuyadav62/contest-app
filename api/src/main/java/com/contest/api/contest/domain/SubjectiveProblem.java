@@ -1,5 +1,7 @@
 package com.contest.api.contest.domain;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,13 +17,10 @@ public class SubjectiveProblem {
     
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String subjectiveProblemId;
+    @Column(name = "sub_prob_id")
+    private String subProbId;
 
-    @Column(name = "answer_id")
-    private String answerId; 
-
-    @Column(name = "answer_text_id")
-    private String answerTextId; 
+    private String subProbAnsText; 
 
     @ManyToOne
     @JoinColumn(name = "problem_id", nullable = false)

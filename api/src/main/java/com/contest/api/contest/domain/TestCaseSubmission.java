@@ -2,6 +2,8 @@ package com.contest.api.contest.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,11 +29,10 @@ public class TestCaseSubmission {
     @Column(name = "time_taken")
     private Float timeTaken;
 
-    @Column(name = "test_case_accepted")
-    private Boolean testCaseAccepted;
+    @Enumerated(EnumType.STRING)
+    private SubAcceptenceStatus subAcceptenceStatus;
 
-    @Column(name = "final_verdict")
-    private String finalVerdict; 
+    private String status; 
 
     @Column(name = "std_err")
     private String stdErr;

@@ -10,29 +10,33 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
+import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.Table;
 
 @Entity
 @Data
-public class CodeSubmission {
-
+@Table(
+    name = "sub_prob_submission",
+    uniqueConstraints = @UniqueConstraint(columnNames = {"sub_prob_id", "contest_participation_id"})
+)
+public class SubProbSumission {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String codeSubmissionId;
- 
-    @Column(name = "code_text_id")
-    private String codeTextId;
+    private String subProbSubId;
 
     @Enumerated(EnumType.STRING)
     private SubAcceptenceStatus subAcceptenceStatus;
 
-    @Column(name = "test_case_passed_count")
-    private Integer testCasePassedCount;
+    @Column(name = "sub_prob_sub_text")
+    private String subProbSubText;
 
     @ManyToOne
-    @JoinColumn(name = "coding_problem_id", nullable = false)
-    private CodingProblem codingProblem;
+    @JoinColumn(name = "sub_prob_id")
+    private SubjectiveProblem subjectiveProblem;
 
     @ManyToOne
-    @JoinColumn(name = "contest_participation_id", nullable = false)
+    @JoinColumn(name = "contest_participation_id")
     private ContestParticipation contestParticipation;
+
 }

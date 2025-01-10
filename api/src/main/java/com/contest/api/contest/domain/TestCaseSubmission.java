@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import lombok.Data;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ForeignKey;
 
@@ -17,6 +18,7 @@ import jakarta.persistence.ForeignKey;
 @Table(name = "test_case_submission", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"code_submission_id", "test_case_id"})
 })
+@Data
 public class TestCaseSubmission {
     
     @Id

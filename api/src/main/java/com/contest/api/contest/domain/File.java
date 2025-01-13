@@ -20,4 +20,10 @@ public class File {
 
     private byte[] data;
 
+    public File(String fileName, String fileType, byte[] data) {
+        this.fileName = fileName;
+        this.fileType = fileType;
+        this.data = data;
+    }
+
 }

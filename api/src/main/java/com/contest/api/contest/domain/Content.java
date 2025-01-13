@@ -25,6 +25,8 @@ public class Content {
     @Enumerated(EnumType.STRING)
     private ContentType contentType;
 
+    private String fileType; 
+
     @NotBlank
     @Column(name = "content_url_id")
     private String contentUrlId;

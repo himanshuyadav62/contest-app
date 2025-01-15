@@ -2,6 +2,7 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import AssessmentPage from './pages/AssessmentPage'
 import Header from './components/common/Header'
+import ProblemForm from './components/creation/ProblemForm'
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <main className="container mx-auto px-4 py-8">
         <Routes>
           <Route path="/" element={<AssessmentPage />} />
+          <Route path="/problem" element={<ProblemForm />} />
         </Routes>
       </main>
     </div>

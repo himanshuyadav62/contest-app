@@ -2,8 +2,6 @@ package com.contest.api.contest.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.contest.api.contest.domain.ContentType;
-
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -16,9 +14,6 @@ public class ContentDto {
     private MultipartFile content;
 
     private String fileType; 
-
-    @NotNull
-    private ContentType contentType;
 
     @NotNull
     Integer contentOrder;

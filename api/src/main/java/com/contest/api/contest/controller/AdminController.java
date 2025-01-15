@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.contest.api.contest.domain.Contest;
 import com.contest.api.contest.dto.ApiRes;
 import com.contest.api.contest.service.ContestService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/api/admin")
@@ -21,10 +25,10 @@ public class AdminController {
         this.contestService = contestService;
     }
     
-
-    @PostMapping("/createContest")
-    public ResponseEntity<ApiRes<Contest>> createContest(@RequestBody Contest contest){
-        ApiRes<Contest> apiRes = this.contestService.createContest(contest);
-        return ResponseEntity.status(apiRes.getStatusCode()).body(apiRes);
+    @GetMapping("/contest/{contestId}")
+    public ResponseEntity<ApiRes<Contest>> getContestById(@PathVariable String contestId) {
+        ApiRes<Contest> response = this.contestService.getContestById(contestId);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
     }
+    
 }

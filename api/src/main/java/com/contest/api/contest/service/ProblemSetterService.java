@@ -6,7 +6,7 @@ import com.contest.api.contest.dto.ProblemDto;
 
 public interface ProblemSetterService {
 
-    ApiRes<Problem> createProblem(String contestId, ProblemDto problemDto);
+    ApiRes<Problem> createProblem(String contestId, ProblemDto problemDto) ;
 
     
 } 

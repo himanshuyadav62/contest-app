@@ -1,5 +1,6 @@
 package com.contest.api.contest.serviceImpl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -46,6 +47,16 @@ public class ContestServiceImpl implements ContestService {
             return new ApiRes<>(200, true, "Contest found",  contestOpt.get());
         } catch (Exception e) {
             return new ApiRes<>(500, false, "Error getting contest: " + e.getMessage(), null);
+        }
+    }
+
+    @Override
+    public ApiRes<List<Contest>> getAllContests() {
+        try {
+            List<Contest> contests = contestRepo.findAll();
+            return new ApiRes<>(200, true, "Contests found", contests);
+        } catch (Exception e) {
+            return new ApiRes<>(500, false, "Error getting contests: " + e.getMessage(), null);
         }
     }
 

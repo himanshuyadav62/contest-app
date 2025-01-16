@@ -2,6 +2,9 @@ package com.contest.api.contest.domain;
 
 import java.util.List;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -36,5 +39,6 @@ public class Problem {
 
     @ManyToOne
     @JoinColumn(name = "contest_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Contest contest;
 }

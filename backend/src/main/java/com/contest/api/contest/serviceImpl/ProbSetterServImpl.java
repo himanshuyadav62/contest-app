@@ -12,6 +12,7 @@ import com.contest.api.contest.domain.SubjectiveProblem;
 import com.contest.api.contest.dto.ApiRes;
 import com.contest.api.contest.dto.ContentDto;
 import com.contest.api.contest.dto.ProblemDto;
+import com.contest.api.contest.dto.ProblemSummary;
 import com.contest.api.contest.repository.CodingProblemRepo;
 import com.contest.api.contest.repository.ContestRepo;
 import com.contest.api.contest.repository.MultipleOptionProbRepo;
@@ -27,6 +28,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -81,7 +83,7 @@ public class ProbSetterServImpl implements ProblemSetterService {
             return new ApiRes<>(500, false, "Failed to upload files", null);
         }
 
-        Problem problem = new Problem(null, problemDto.getProblemType(), contents, contest.get());
+        Problem problem = new Problem(null, problemDto.getProblemType(),problemDto.getProblemTitle(), contents, contest.get());
         Problem savedProblem = problemRepo.save(problem);
 
         return new ApiRes<>(201, true, "Problem created successfully", savedProblem);
@@ -138,6 +140,18 @@ public class ProbSetterServImpl implements ProblemSetterService {
                 new ApiRes<>(400, false, "Invalid problem details", null);
         };
 
+    }
+
+    @Override
+    public ApiRes<Map<ProblemType, List<ProblemSummary>>> getAllProblemsGroupedByType(String contestId) {
+
+        List<ProblemSummary> problems = this.problemRepo.findByContestContestId(contestId);
+
+        // Group by problemType
+        Map<ProblemType, List<ProblemSummary>> groupedProblems = problems.stream()
+            .collect(Collectors.groupingBy(ProblemSummary::problemType));
+
+        return new ApiRes<>(200, true, "Problems grouped by type successfully", groupedProblems);
     }
 
 }

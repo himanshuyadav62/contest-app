@@ -14,6 +14,8 @@ public class ProblemDto {
     @NotNull
     private ProblemType problemType; 
 
+    private String problemTitle; 
+
     @NotNull
     private List<ContentDto> contentDtos;
 }

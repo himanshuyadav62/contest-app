@@ -17,6 +17,10 @@ public class FileServiceImpl implements FileService {
 
     private FileRepo fileRepo;
 
+    public FileServiceImpl(FileRepo fileRepo) {
+        this.fileRepo = fileRepo;
+    }
+
     @Override
     @Transactional
     public List<File> uploadFiles(List<MultipartFile> files) throws IOException {

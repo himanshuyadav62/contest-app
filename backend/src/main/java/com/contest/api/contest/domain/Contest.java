@@ -30,29 +30,34 @@ public class Contest {
 
     @Column(name = "contest_name", nullable = false)
     @NotNull
+    @UpdatableField
     private String contestName;
 
     @Column(name = "contest_description", length = 1000)
+    @UpdatableField
     private String contestDescription;
 
     @Column(name = "start_time", nullable = false)
     @NotNull
+    @UpdatableField
     private Instant startTime;
     
     @Column(name = "end_time", nullable = false)
     @NotNull
+    @UpdatableField
     private Instant endTime;
 
     @Column(name = "is_private", nullable = false)
     @NotNull
+    @UpdatableField
     private Boolean isPrivate; 
     
     @Column(name = "registration_deadline")
+    @UpdatableField
     private Instant registrationDeadline;
 
-    private Boolean isActive;
-
-    private Boolean isDeleted;
+    @UpdatableField
+    private Boolean isActive = true;
 
     @CreatedDate
     private Instant createdAt;

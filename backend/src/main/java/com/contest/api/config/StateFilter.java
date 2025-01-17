@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.contest.api.entity.User;
@@ -58,5 +59,13 @@ public class StateFilter extends OncePerRequestFilter {
         } else {
             filterChain.doFilter(request, response);
         }
+    }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        AntPathMatcher pathMatcher = new AntPathMatcher();
+        String[] excludedPaths = { "/api/auth/**" };
+        String requestPath = request.getRequestURI();
+        return Arrays.stream(excludedPaths).anyMatch(excludedPath -> pathMatcher.match(excludedPath, requestPath));
     }
 }
